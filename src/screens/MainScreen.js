@@ -1,9 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Appbar, ActivityIndicator } from 'react-native-paper'
+import { Appbar, ActivityIndicator, Text } from 'react-native-paper'
 import GoalList from '../components/GoalsList'
 import { useSelector } from 'react-redux'
 import AmountDialog from '../components/AmountDiaolog'
+import LinkToSite from '../components/LinkToSite'
 
 export default function MainScreen({ navigation }) {
   const loading = useSelector((state) => state.status.app_loading)
@@ -26,6 +27,17 @@ export default function MainScreen({ navigation }) {
         {!loading && <GoalList />}
       </View>
       <AmountDialog />
+      <View style={{ display: 'flex', alignItems: 'center', marginTop: '25%' }}>
+        <Text style={{ marginBottom: 10 }}>
+          App developed by{' '}
+          <LinkToSite link={process.env.EXPO_PUBLIC_SITE_URL}>
+            S.Govorov
+          </LinkToSite>
+        </Text>
+        <LinkToSite link={process.env.EXPO_PUBLIC_COFFEE_URL}>
+          Buy coffee for developer
+        </LinkToSite>
+      </View>
     </View>
   )
 }

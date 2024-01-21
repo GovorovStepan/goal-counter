@@ -19,7 +19,6 @@ export const loadData = async (key) => {
   }
 }
 
-// Очистить все данные в AsyncStorage
 export const clearAsyncStorage = async () => {
   try {
     await AsyncStorage.clear()
