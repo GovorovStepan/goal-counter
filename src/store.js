@@ -1,13 +1,13 @@
 import { configureStore, applyMiddleware } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 import goalsReducer from './reducers/goalsReducer'
-import actionsReducer from './reducers/actionsReducer'
+import statusReducer from './reducers/statusReducer'
 
 const store = configureStore(
   {
     reducer: {
       goals: goalsReducer,
-      actions: actionsReducer,
+      status: statusReducer,
     },
   },
   applyMiddleware(thunk)

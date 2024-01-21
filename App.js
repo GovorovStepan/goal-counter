@@ -7,8 +7,8 @@ import { Provider } from 'react-native-paper'
 import { MainScreen, CreateScreen } from './src/screens'
 import { Provider as ReduxProvider } from 'react-redux'
 import { loadGoalsFromStorage } from './src/reducers/goalsReducer'
+import { appLoaded } from './src/reducers/statusReducer'
 import store from './src/store'
-import { appLoaded } from './src/reducers/actionsReducer'
 
 const Stack = createStackNavigator()
 

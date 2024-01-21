@@ -3,9 +3,10 @@ import { View } from 'react-native'
 import { Appbar, ActivityIndicator } from 'react-native-paper'
 import GoalList from '../components/GoalsList'
 import { useSelector } from 'react-redux'
+import AmountDialog from '../components/AmountDiaolog'
 
 export default function MainScreen({ navigation }) {
-  const loading = useSelector((state) => state.actions.app_loading)
+  const loading = useSelector((state) => state.status.app_loading)
 
   return (
     <View>
@@ -24,6 +25,7 @@ export default function MainScreen({ navigation }) {
         )}
         {!loading && <GoalList />}
       </View>
+      <AmountDialog />
     </View>
   )
 }

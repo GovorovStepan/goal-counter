@@ -2,23 +2,27 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { IconButton, ProgressBar, Text, useTheme } from 'react-native-paper'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateGoalAmountInStorage } from '../reducers/goalsReducer'
+import {
+  setAmountDialogType,
+  setChangeGoal,
+  showAmountDialog,
+} from '../reducers/statusReducer'
 
 export default function GoalElement({ uuid }) {
   const theme = useTheme()
   const data = useSelector((state) => state.goals[uuid])
   const dispatch = useDispatch()
 
-  const plus = (sum) => {
-    if (data.current_amount < data.amount) {
-      dispatch(updateGoalAmountInStorage(uuid, data.current_amount + sum))
-    }
+  const plus = () => {
+    dispatch(setChangeGoal(uuid))
+    dispatch(setAmountDialogType('plus'))
+    dispatch(showAmountDialog())
   }
 
-  const minus = (sum) => {
-    if (data.current_amount - sum >= 0) {
-      dispatch(updateGoalAmountInStorage(uuid, data.current_amount - sum))
-    }
+  const minus = () => {
+    dispatch(setChangeGoal(uuid))
+    dispatch(setAmountDialogType('minus'))
+    dispatch(showAmountDialog())
   }
 
   return (
@@ -35,7 +39,7 @@ export default function GoalElement({ uuid }) {
         <IconButton
           icon="minus-circle-outline"
           size={24}
-          onPress={() => minus(50)}
+          onPress={() => minus()}
         />
         <View style={styles.progress_bar}>
           <ProgressBar progress={data.current_amount / data.amount} />
@@ -43,7 +47,7 @@ export default function GoalElement({ uuid }) {
         <IconButton
           icon="plus-circle-outline"
           size={24}
-          onPress={() => plus(100)}
+          onPress={() => plus()}
         />
       </View>
       <View style={styles.footer_container}>
