@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { IconButton, ProgressBar, Text, useTheme } from 'react-native-paper'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateGoalAmountInStorage } from '../reducers/goalsReducer'
 
-export default function GoalElement({ current_amount, amount, title }) {
+export default function GoalElement({ uuid }) {
   const theme = useTheme()
-
-  const [currentAmount, setCurrentAmount] = useState(current_amount)
-  const [progress, setProgress] = useState(current_amount / amount)
-
-  useEffect(() => {
-    setProgress(calculateProgress())
-  }, [currentAmount])
+  const data = useSelector((state) => state.goals[uuid])
+  const dispatch = useDispatch()
 
   const plus = (sum) => {
-    if (currentAmount < amount) {
-      setCurrentAmount(currentAmount + sum)
+    if (data.current_amount < data.amount) {
+      dispatch(updateGoalAmountInStorage(uuid, data.current_amount + sum))
     }
   }
 
   const minus = (sum) => {
-    if (currentAmount - sum >= 0) {
-      setCurrentAmount(currentAmount - sum)
+    if (data.current_amount - sum >= 0) {
+      dispatch(updateGoalAmountInStorage(uuid, data.current_amount - sum))
     }
-  }
-
-  const calculateProgress = () => {
-    return currentAmount / amount
   }
 
   return (
@@ -36,7 +29,7 @@ export default function GoalElement({ current_amount, amount, title }) {
       }}
     >
       <View style={styles.header_container}>
-        <Text variant="titleMedium">{title}</Text>
+        <Text variant="titleMedium">{data.title}</Text>
       </View>
       <View style={styles.progress_container}>
         <IconButton
@@ -45,7 +38,7 @@ export default function GoalElement({ current_amount, amount, title }) {
           onPress={() => minus(50)}
         />
         <View style={styles.progress_bar}>
-          <ProgressBar progress={progress} />
+          <ProgressBar progress={data.current_amount / data.amount} />
         </View>
         <IconButton
           icon="plus-circle-outline"
@@ -55,7 +48,7 @@ export default function GoalElement({ current_amount, amount, title }) {
       </View>
       <View style={styles.footer_container}>
         <Text variant="bodyMedium">
-          {currentAmount} out of {amount}
+          {data.current_amount} out of {data.amount}
         </Text>
       </View>
     </View>

@@ -1,35 +1,11 @@
-import React, { useCallback, useState } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
+import React from 'react'
 import { View } from 'react-native'
 import { Appbar, ActivityIndicator } from 'react-native-paper'
 import GoalList from '../components/GoalsList'
-import { loadData, clearAsyncStorage } from '../services/storageService'
+import { useSelector } from 'react-redux'
 
 export default function MainScreen({ navigation }) {
-  const [loading, setLoading] = useState(true)
-  const [storedData, setStoredData] = useState([])
-  // clearAsyncStorage()
-
-  const fetchData = async () => {
-    try {
-      const data = await loadData('goals')
-      console.log('data', data)
-
-      if (data) {
-        setStoredData(data)
-      }
-
-      setLoading(false)
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchData()
-    }, [])
-  )
+  const loading = useSelector((state) => state.actions.app_loading)
 
   return (
     <View>
@@ -46,7 +22,7 @@ export default function MainScreen({ navigation }) {
             <ActivityIndicator animating={true} size="large" />
           </View>
         )}
-        {!loading && <GoalList storedData={storedData} />}
+        {!loading && <GoalList />}
       </View>
     </View>
   )

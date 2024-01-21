@@ -8,7 +8,8 @@ import {
   Snackbar,
   Portal,
 } from 'react-native-paper'
-import { loadData, saveData } from '../services/storageService'
+import { useStore } from 'react-redux'
+import { saveGoalToStorage } from '../reducers/goalsReducer'
 
 export default function CreateForm() {
   const [loading, setLoading] = useState(false)
@@ -22,6 +23,7 @@ export default function CreateForm() {
   const [amountErrorStatus, setAmountErrorStatus] = useState(false)
   const [amountTypeErrorStatus, setAmountTypeErrorStatus] = useState(false)
   const [createButtonDisabled, setCreateButtonDisabled] = useState(true)
+  const store = useStore()
 
   useEffect(() => {
     setCreateButtonDisabled(
@@ -38,14 +40,14 @@ export default function CreateForm() {
     setCreateButtonDisabled(true)
 
     try {
-      const data = (await loadData('goals')) || []
+      const goals = store.getState().goals
 
-      if (data.length < 3) {
-        data.push({ title, amount, current_amount: 0, uuid: uuid.v4() })
-        saveData('goals', data).then(() => {
-          setSnackText('You succsesfulu set goal')
-          setSnackBarVisible(true)
-        })
+      if (Object.keys(goals).length < 3) {
+        store.dispatch(
+          saveGoalToStorage(uuid.v4(), { title, amount, current_amount: 0 })
+        )
+        setSnackText('You succsesfully set goal')
+        setSnackBarVisible(true)
       } else {
         setSnackText('You reached the limit of 3 goals')
         setSnackBarVisible(true)
