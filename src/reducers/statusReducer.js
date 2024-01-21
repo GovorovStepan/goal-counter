@@ -2,6 +2,8 @@
 const APP_LOADED = 'APP_LOADED'
 const SHOW_AMOUNT_DIALOG = 'SHOW_AMOUNT_DIALOG'
 const HIDE_AMOUNT_DIALOG = 'HIDE_AMOUNT_DIALOG'
+const SHOW_DELETE_DIALOG = 'SHOW_DELETE_DIALOG'
+const HIDE_DELETE_DIALOG = 'HIDE_DELETE_DIALOG'
 const SET_AMOUNT_DIALOGE_TYPE = 'SET_AMOUNT_DIALOGE_TYPE'
 const SET_CHANGE_GOAL_UUID = 'SET_CHANGE_GOAL_UUID'
 const CLEAR_CHANGE_GOAL_UUID = 'CLEAR_CHANGE_GOAL_UUID'
@@ -15,6 +17,12 @@ export const showAmountDialog = () => ({
 })
 export const hideAmountDialog = () => ({
   type: HIDE_AMOUNT_DIALOG,
+})
+export const showDeleteDialog = () => ({
+  type: SHOW_DELETE_DIALOG,
+})
+export const hideDeleteDialog = () => ({
+  type: HIDE_DELETE_DIALOG,
 })
 export const setAmountDialogType = (dialog_type) => ({
   type: SET_AMOUNT_DIALOGE_TYPE,
@@ -34,6 +42,7 @@ const initialState = {
   amount_dialog: false,
   amount_dialog_type: null,
   change_goal_uuid: null,
+  delete_dialog: false,
 }
 
 // Reducer
@@ -53,6 +62,16 @@ const statusReducer = (state = initialState, action) => {
       return {
         ...state,
         amount_dialog: false,
+      }
+    case SHOW_DELETE_DIALOG:
+      return {
+        ...state,
+        delete_dialog: true,
+      }
+    case HIDE_DELETE_DIALOG:
+      return {
+        ...state,
+        delete_dialog: false,
       }
     case SET_AMOUNT_DIALOGE_TYPE:
       return {

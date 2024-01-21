@@ -5,6 +5,7 @@ import GoalList from '../components/GoalsList'
 import { useSelector } from 'react-redux'
 import AmountDialog from '../components/AmountDiaolog'
 import LinkToSite from '../components/LinkToSite'
+import DeleteDialog from '../components/DeleteDialog'
 
 export default function MainScreen({ navigation }) {
   const loading = useSelector((state) => state.status.app_loading)
@@ -27,7 +28,8 @@ export default function MainScreen({ navigation }) {
         {!loading && <GoalList />}
       </View>
       <AmountDialog />
-      <View style={{ display: 'flex', alignItems: 'center', marginTop: '25%' }}>
+      <DeleteDialog />
+      <View style={{ display: 'flex', alignItems: 'center', marginTop: 50 }}>
         <Text style={{ marginBottom: 10 }}>
           App developed by{' '}
           <LinkToSite link={process.env.EXPO_PUBLIC_SITE_URL}>

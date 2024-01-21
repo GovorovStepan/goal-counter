@@ -111,7 +111,7 @@ export default function CreateForm() {
           value={title}
           disabled={loading}
           onChangeText={(value) => {
-            setTitle(value)
+            setTitle(value.substring(0, 30))
           }}
           onFocus={() => setTitleIsToched(true)}
           onBlur={handleTitleStatus}
@@ -128,7 +128,7 @@ export default function CreateForm() {
           disabled={loading}
           error={amountErrorStatus}
           onChangeText={(value) => {
-            setAmount(value)
+            setAmount(value.substring(0, 30))
           }}
           onFocus={() => setAmountIsToched(true)}
           onBlur={handleAmountStatus}
@@ -147,7 +147,9 @@ export default function CreateForm() {
       <Portal>
         <Snackbar
           visible={snackBarVisible}
-          onDismiss={() => {}}
+          onDismiss={() => {
+            console.log('Close Snackbar')
+          }}
           action={{
             label: 'Close',
             onPress: () => {

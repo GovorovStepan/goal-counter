@@ -6,6 +6,7 @@ import {
   setAmountDialogType,
   setChangeGoal,
   showAmountDialog,
+  showDeleteDialog,
 } from '../reducers/statusReducer'
 
 export default function GoalElement({ uuid }) {
@@ -24,6 +25,10 @@ export default function GoalElement({ uuid }) {
     dispatch(setAmountDialogType('minus'))
     dispatch(showAmountDialog())
   }
+  const deleteGoal = () => {
+    dispatch(setChangeGoal(uuid))
+    dispatch(showDeleteDialog())
+  }
 
   return (
     <View
@@ -33,7 +38,10 @@ export default function GoalElement({ uuid }) {
       }}
     >
       <View style={styles.header_container}>
-        <Text variant="titleMedium">{data.title}</Text>
+        <Text variant="titleMedium" style={{ marginLeft: 28 }}>
+          {data.title}
+        </Text>
+        <IconButton icon="delete" size={16} onPress={() => deleteGoal()} />
       </View>
       <View style={styles.progress_container}>
         <IconButton
@@ -78,9 +86,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   header_container: {
-    paddingTop: 20,
+    paddingTop: 6,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   footer_container: {
     display: 'flex',

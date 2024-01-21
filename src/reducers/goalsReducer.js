@@ -62,6 +62,16 @@ export const saveGoalToStorage = (uuid, value) => async (dispatch) => {
     console.error('Error saving goals to AsyncStorage:', error)
   }
 }
+export const deleteGoalFromStorage = (uuid) => async (dispatch) => {
+  try {
+    const goals = (await loadData('goals')) || {}
+    delete goals[uuid]
+    saveData('goals', goals)
+    dispatch(setGoals(goals))
+  } catch (error) {
+    console.error('Error saving goals to AsyncStorage:', error)
+  }
+}
 
 export const updateGoalAmountInStorage = (uuid, value) => async (dispatch) => {
   try {
