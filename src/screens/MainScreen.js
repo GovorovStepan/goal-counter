@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import { Appbar, ActivityIndicator, Text } from 'react-native-paper'
 import GoalList from '../components/GoalsList'
 import { useSelector } from 'react-redux'
-import AmountDialog from '../components/AmountDiaolog'
 import LinkToSite from '../components/LinkToSite'
 import DeleteDialog from '../components/DeleteDialog'
 
@@ -27,7 +26,6 @@ export default function MainScreen({ navigation }) {
         )}
         {!loading && <GoalList />}
       </View>
-      <AmountDialog />
       <DeleteDialog />
       <View style={{ display: 'flex', alignItems: 'center', marginTop: 50 }}>
         <Text style={{ marginBottom: 10 }}>

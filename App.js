@@ -9,6 +9,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { loadGoalsFromStorage } from './src/reducers/goalsReducer'
 import { appLoaded } from './src/reducers/statusReducer'
 import store from './src/store'
+import AmountDialog from './src/components/AmountDiaolog'
 
 const Stack = createStackNavigator()
 
@@ -31,6 +32,7 @@ export default function App() {
             <Stack.Screen name="CreateScreen" component={CreateScreen} />
           </Stack.Navigator>
         </NavigationContainer>
+        <AmountDialog />
         <StatusBar style="auto" />
       </ReduxProvider>
     </Provider>
